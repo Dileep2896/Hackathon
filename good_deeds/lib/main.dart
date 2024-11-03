@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:good_deeds/screens/auth/login.dart';
-import 'package:good_deeds/screens/auth/signup.dart';
-import 'package:good_deeds/screens/home/home_screen.dart';
+import 'package:good_deeds/screens/initial_user_fetch.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -23,17 +22,13 @@ class MyApp extends StatelessWidget {
     User? user = FirebaseAuth.instance.currentUser;
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: user == null ? LoginScreen.routeName : HomeScreen.routeName,
-      routes: {
-        LoginScreen.routeName: (context) => const LoginScreen(),
-        Signup.routeName: (context) => const Signup(),
-        HomeScreen.routeName: (context) => const HomeScreen(),
-      },
+      home: user == null ? const LoginScreen() : const InitialUserFetch(),
     );
   }
 }

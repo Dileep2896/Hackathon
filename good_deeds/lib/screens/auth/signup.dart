@@ -3,6 +3,7 @@ import 'package:good_deeds/apis/auth.dart';
 import 'package:good_deeds/constants/colors.dart';
 import 'package:good_deeds/screens/auth/login.dart';
 import 'package:good_deeds/screens/home/home_screen.dart';
+import 'package:good_deeds/screens/initial_user_fetch.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -15,6 +16,7 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
@@ -47,6 +49,30 @@ class _SignupState extends State<Signup> {
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _nameController,
+                        decoration: InputDecoration(
+                          hintText: 'Name',
+                          fillColor: Colors.white,
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                            borderSide: BorderSide.none,
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15.0,
+                            horizontal: 20.0,
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your name';
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 20),
                       TextFormField(
@@ -157,14 +183,16 @@ class _SignupState extends State<Signup> {
                           if (_formKey.currentState!.validate()) {
                             _authService
                                 .signUpWithEmailAndPassword(
+                                    _nameController.text,
                                     _emailController.text,
                                     _passwordController.text)
                                 .then((user) {
                               if (user != null) {
-                                Navigator.popAndPushNamed(
-                                  context,
-                                  HomeScreen.routeName,
-                                );
+                                Navigator.pop(context);
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return const InitialUserFetch();
+                                }));
                               }
                               setState(() {
                                 isLoading = false;
@@ -195,10 +223,11 @@ class _SignupState extends State<Signup> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.popAndPushNamed(
-                                context,
-                                LoginScreen.routeName,
-                              );
+                              Navigator.pop(context);
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return const LoginScreen();
+                              }));
                             },
                             child: const Text(
                               'Sign In',

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:good_deeds/apis/auth.dart';
 import 'package:good_deeds/constants/colors.dart';
 import 'package:good_deeds/screens/auth/signup.dart';
-import 'package:good_deeds/screens/home/home_screen.dart';
+import 'package:good_deeds/screens/initial_user_fetch.dart';
 
 const Color primaryColor = Color(0xFF6F35A5);
 const Color primaryLightColor = Color(0xFFF1E6FF);
@@ -108,8 +108,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                     _passwordController.text)
                                 .then((user) {
                               if (user != null) {
-                                Navigator.popAndPushNamed(
-                                    context, HomeScreen.routeName);
+                                Navigator.pop(context);
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return const InitialUserFetch();
+                                }));
                               }
                               setState(() {
                                 isLoading = false;
@@ -142,10 +145,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextButton(
                             onPressed: () {
                               // Navigate to sign up screen
-                              Navigator.popAndPushNamed(
-                                context,
-                                Signup.routeName,
-                              );
+                              Navigator.pop(context);
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return const Signup();
+                              }));
                             },
                             child: const Text(
                               'Sign Up',

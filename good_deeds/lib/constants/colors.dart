@@ -6,4 +6,5 @@ class AppColors {
   static const Color accentColor = Color(0xFFFFD54F); // Golden Yellow
   static const Color backgroundColor = Color(0xFFF5F5F5); // Light Warm Gray
   static const Color textColor = Color(0xFF424242); // Charcoal Gray
+  static const Color pinkColor = Color(0xFFE89882); // Light Gray
 }
