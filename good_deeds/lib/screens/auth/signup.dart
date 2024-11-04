@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:good_deeds/apis/auth.dart';
 import 'package:good_deeds/constants/colors.dart';
 import 'package:good_deeds/screens/auth/login.dart';
-import 'package:good_deeds/screens/home/home_screen.dart';
 import 'package:good_deeds/screens/initial_user_fetch.dart';
 
 class Signup extends StatefulWidget {
